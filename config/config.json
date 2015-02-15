@@ -1,0 +1,9 @@
+{
+  "company": {
+    "username": "root",
+    "password": "bsh2011033900",
+    "database": "company",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
