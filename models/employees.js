@@ -2,12 +2,7 @@
 "use strict";
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('employees', {
-        ID: {
-            type: DataTypes.INTEGER(11),
-            primaryKey: true,
-            allowNull: false,
-            autoIncrement: true
-        },
+
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,

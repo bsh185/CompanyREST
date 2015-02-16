@@ -20,8 +20,10 @@ router.post('/', function (req, res) {
         var finalReslut = [];
         var count = 0;
         db.sequelize.transaction(function (t) {
+            t.options.autocommit=false;
+            t.setAutocommit(0);
             data.forEach(function (item) {
-                models.employees.create(item, {transaction: t}).then(function (result) {
+                models.employees.create(item, {transaction: t }).then(function (result) {
                     count++;
                     finalReslut.push(result);
                     if (count == data.length) {
