@@ -2,58 +2,49 @@
  * Created by Bashar Shrah on 2/15/2015.
  */
 var express = require('express');
-var models  = require('..\\models');
-var db  = require('..\\models\\index.js');
+var models = require('..\\models');
+var db = require('..\\models\\index.js');
 var router = express.Router();
-router.get('/', function(req, res) {
-    res.render('index', { title: 'Company API' });
+router.get('/', function (req, res) {
+    res.render('index', {title: 'Company API'});
 });
 
-router.post('/', function (req,res) {
+
+router.post('/', function (req, res) {
     //console.log(req.body.employees[0])
-    if(req.body.employees){
-        var data= [];
-        for (index in req.body.employees){
+    if (req.body.employees) {
+        var data = [];
+        for (index in req.body.employees) {
             data.push(req.body.employees[index]);
         }
-        var re=[];
-        var count=0;
-        for(i in data) {
-            db.sequelize.transaction(function (t) { // Note that we use a callback rather than a promise.then()
-                return models.employees.create(data[i], {transaction: t}).then(function (user) {
-                    return user.update({deptID: 2}, {transaction: t}).then(function (user) {
-                        return user.update({lastName: "Shrah"}, {transaction: t}).then(function (user) {
-                            return user.update({firstName: "bashar"}, {transaction: t})
-                        });
-                    });
-                });
-            }).then(function (result) {
-                re.push(result);
-                count++;
-                if(count==data.length){
-                    res.json(re);
-                }
-            }).catch(function (err) {
-                if(count==0){
-                    res.json(err);
+        var finalReslut = [];
+        var count = 0;
+        db.sequelize.transaction(function (t) {
+            data.forEach(function (item) {
+                models.employees.create(item, {transaction: t}).then(function (result) {
                     count++;
-                }
-
+                    finalReslut.push(result);
+                    if (count == data.length) {
+                        res.json(finalReslut);
+                        t.commit();
+                    }
+                }).catch(function (err) {
+                    res.json(err);
+                    t.rollback();
+                })
             });
-        }
+        }).catch(function (err) {
+            //stupid catch error don't remove to keep probably un-handheld error out
+        });
+
     }
-     if(req.body.Dept){
+    if (req.body.Dept) {
         console.log("works");
     }
-
 });
-
 
 
 module.exports = router;
-
-
-
 
 
 /* var data={
@@ -87,3 +78,56 @@ module.exports = router;
  return false;
  });
  });*/
+
+
+/*).then(function (result) {
+ res.json(result);
+ }).catch(function (err) {
+ res.stats(400).json(err);
+ });*/
+/*  data.forEach(function (item) {
+ db.sequelize.transaction(function (t) { // Note that we use a callback rather than a promise.then()
+ return models.employees.create(item, {transaction: t}).then(function (user) {
+ return user.update({deptID: 2}, {transaction: t}).then(function (user) {
+ return user.update({lastName: "Shrah"}, {transaction: t}).then(function (user) {
+ return user.update({firstName: "bashar"}, {transaction: t})
+ });
+ });
+ });
+ }).then(function (result) {
+ re.push(result);
+ count++;
+ if(count==data.length){
+ res.json(re);
+ }
+ }).catch(function (err) {
+ if(count==0){
+ res.json(err);
+ count++;
+ }
+ });
+ });*/
+/*for(i in data) {
+ console.log(data[i]);
+ db.sequelize.transaction(function (t) { // Note that we use a callback rather than a promise.then()
+ return models.employees.create(data[i], {transaction: t}).then(function (user) {
+ return user.update({deptID: 2}, {transaction: t}).then(function (user) {
+ return user.update({lastName: "Shrah"}, {transaction: t}).then(function (user) {
+ return user.update({firstName: "bashar"}, {transaction: t})
+ });
+ });
+ });
+ }).then(function (result) {
+ re.push(result);
+ count++;
+ if(count==data.length){
+ res.json(re);
+ }
+ }).catch(function (err) {
+ if(count==0){
+ res.json(err);
+ count++;
+ }
+
+ });
+ }*/
