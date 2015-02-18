@@ -53,6 +53,7 @@ router.post('/',  function(req,res){
         projectID:req.body.projectID,
         deptID:req.body.deptID
     };
+    console.log(data);
     models.employees.create(data).then(function(result){
         res.json(result);
     }).catch(function(err){
