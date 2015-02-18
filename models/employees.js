@@ -48,10 +48,8 @@ module.exports = function (sequelize, DataTypes) {
                 }
             }
         }
-        },
-        {
-            timestamps: false
         }
+
         , {
 
         classMethods: {
@@ -59,6 +57,8 @@ module.exports = function (sequelize, DataTypes) {
                 this.belongsTo(modles.departments, {foreignKey: "deptID"});
                 this.belongsTo(modles.projects, {foreignKey: "projectID"});
             }
+
         }
-    });
+
+        });
 };

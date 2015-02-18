@@ -4,6 +4,9 @@
     "password": "bsh2011033900",
     "database": "company",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "define": {
+      "timestamps": false
+    }
   }
 }

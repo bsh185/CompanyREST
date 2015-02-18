@@ -17,11 +17,9 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         }
 
-        },
-        {
-            timestamps: false
         }
-        , {
+        ,
+        {
         classMethods: {
             associate: function (modles) {
                 this.hasMany(modles.employees, {foreignKey: "deptID"});
