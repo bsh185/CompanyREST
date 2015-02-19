@@ -56,9 +56,11 @@ module.exports = function (sequelize, DataTypes) {
             associate: function (modles) {
                 this.belongsTo(modles.departments, {foreignKey: "deptID"});
                 this.belongsTo(modles.projects, {foreignKey: "projectID"});
+                this.removeAttribute('id');
             }
 
         }
 
-        });
+        }
+    );
 };
