@@ -1,7 +1,7 @@
 {
   "company": {
     "username": "root",
-    "password": "root",
+    "password": "",
     "database": "company",
     "host": "localhost",
     "dialect": "mysql",

@@ -2,8 +2,8 @@
  * Created by Bashar Shrah on 2/15/2015.
  */
 var express = require('express');
-var models = require('..\\models');
-var db = require('..\\models\\index.js');
+var models = require('../models');
+var db = require('../models/index.js');
 var router = express.Router();
 router.get('/', function (req, res) {
     res.render('index', {title: 'Company API'});
@@ -20,10 +20,10 @@ router.post('/', function (req, res) {
         var finalReslut = [];
         var count = 0;
         db.sequelize.transaction(function (t) {
-            t.options.autocommit=false;
+            t.options.autocommit = false;
             t.setAutocommit(0);
             data.forEach(function (item) {
-                models.employees.create(item, {transaction: t }).then(function (result) {
+                models.employees.create(item, {transaction: t}).then(function (result) {
                     count++;
                     finalReslut.push(result);
                     if (count == data.length) {

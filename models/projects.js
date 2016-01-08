@@ -2,13 +2,13 @@
 "use strict";
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('projects', {
-            ID: {
+            id: {
                 type: DataTypes.INTEGER(11),
                 primaryKey: true,
                 allowNull: false,
                 autoIncrement: true
             },
-            projectName: {
+            project_name: {
                 type: DataTypes.STRING,
                 allowNull: false
             }

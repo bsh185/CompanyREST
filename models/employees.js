@@ -3,14 +3,14 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('employees', {
 
-        firstName: {
+            first_name: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 isAlpha: {msg: "First Name Must Contain Alphabetical Letters Only"}
             }
         },
-        lastName: {
+            last_name: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
